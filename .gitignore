@@ -1,0 +1,33 @@
+# Cartaro Enterprise 
+# Default gitignore
+
+
+/sites/*/settings.php
+/sites/*/files
+/sites/*/private
+/files/*
+/cache
+
+/sites/default/**/files
+/sites/default/**/private
+
+*.7z
+*.dmg
+*.gz
+*.bz2
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tgz
+
+*.log
+*.sql
+
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+._*
+robots.txt
