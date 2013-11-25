@@ -17,6 +17,7 @@ function geoserver_ui_admin_settings_form() {
   $url        = geoserver_url();
   $workspace  = variable_get('geoserver_workspace', '');
   $workspaces = array('');
+  $workspace_type = 'select';
 
   if (!empty($url)) {
     try {
@@ -27,10 +28,11 @@ function geoserver_ui_admin_settings_form() {
           $workspaces[$ws->name] = $ws->name;
         }
       }
-    } catch (geoserver_resource_exception $e) {
-      drupal_set_message(t("Failed to get list of workspaces from GeoServer: @exception", array(
-        "@exception" => $e->getMessage()
-      )), 'error');
+    } catch (geoserver_resource_exception $exc) {
+      $workspace_type = 'textfield';
+      drupal_set_message(t('Failed to get list of workspaces from GeoServer. See the log for details.'), 'error');
+      watchdog('geoserver', 'Failed to get list of workspaces from GeoServer: @exception',
+        array('@exception' => $exc->getMessage()), WATCHDOG_ERROR);
     }
   }
 
@@ -45,10 +47,10 @@ function geoserver_ui_admin_settings_form() {
       '#description' => t('The URL where GeoServer is running. You need to re-login into Drupal to allow authentication to GeoServer before the new server can be used.'),
     ),
     'geoserver_workspace' => array(
-      '#type' => 'select',
+      '#type' => $workspace_type,
       '#title' => t('GeoServer Workspace'),
       '#description' => t('The workspace where all layers and styles will be stored. Only changeable as long as the list of layers and styles is empty.'),
-      '#options' => $workspaces,
+      '#options' => $workspace_type == 'select' ? $workspaces : NULL,
       '#default_value' => $workspace,
       '#disabled' => !(empty($layers) && empty($styles)),
     ),

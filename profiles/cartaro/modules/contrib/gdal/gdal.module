@@ -39,3 +39,5 @@ function gdal_feeds_plugins() {
   );
   return $info;
 }
+
+// vim: ft=php tabstop=2 shiftwidth=2

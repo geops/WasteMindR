@@ -81,7 +81,7 @@ function postgis_requirements($phase) {
       $description_extension = ($description_extension === NULL) ? '' : ' ' . $description_extension;
       $requirements[] = array(
         'title' => 'PostGIS',
-        'description' => $t('A <a href="@link">PostGIS</a> enabled database is required; version 1.5 is strongly recommended.',
+        'description' => $t('A <a href="@link">PostGIS</a> enabled database is required.',
           array('@link' => 'http://postgis.org')) . $description_extension,
         'value' => $version,
         'severity' => $severity,

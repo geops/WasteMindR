@@ -5,11 +5,15 @@ core = 7.x
 files[] = includes/postgis.geometry.inc
 files[] = plugins/geoserver/layer_types/geoserver_layer_type_postgis_field.inc
 files[] = postgis.test
-
 files[] = views/postgis_views_handler_filter_geometry.inc
-; Information added by drupal.org packaging script on 2013-07-15
-version = "7.x-1.0"
+
+stylesheets[all][] = postgis.css
+
+
+
+; Information added by  packaging script on 2013-11-21
+version = "7.x-1.1"
 core = "7.x"
 project = "postgis"
-datestamp = "1373899575"
+datestamp = "1385057613"
 

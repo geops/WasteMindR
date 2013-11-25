@@ -17,9 +17,9 @@ files[] = views/openlayers_views_plugin_row_bounding_box.inc
 files[] = views/openlayers_views_plugin_row_geometry.inc
 
 
-; Information added by drush on 2013-07-15
+; Information added by drush on 2013-11-22
 version = "7.x-2.0-beta7"
 core = "7.x"
 project = "openlayers"
-datestamp = "1373900826"
+datestamp = "1385130564"
 

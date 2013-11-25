@@ -91,6 +91,7 @@ function postgis_field_widget_settings_form($field, $instance) {
  * Implements hook_field_widget_form().
  */
 function postgis_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+
   $widget = $instance['widget'];
   $settings = $widget['settings'];
 
@@ -164,25 +165,41 @@ function postgis_field_widget_form(&$form, &$form_state, $field, $instance, $lan
       'feature_limit' => ($field['cardinality'] > 0) ? $field['cardinality'] : NULL,
     ));
 
+    $class = 'form-item-postgis-map';
+    if ($element['#required'] && !empty($form_state['input']) &&
+        $form_state['input'][$field['field_name']]['und'][0]['wkt'] === '') {
+      $class .= ' error';
+    }
+
     $element[$delta]['map'] = array(
       '#title' => $instance['label'],
       '#type' => 'item',
-      '#markup' => '<div class="form-item" style="display:block">' . openlayers_render_map($map->data) . '</div>',
+      '#markup' => '<div class="form-item"><div class="'.$class.'">' .
+        openlayers_render_map($map->data) . '</div></div>',
+      '#required' => $element['#required'],
       '#description' => $element['#description'],
     );
 
     $element[$delta]['wkt'] = array(
       '#type' => 'textarea',
-      '#attributes' => array('id' => $textarea_id, 'style' => 'display: none;'),
+      '#title' => $instance['label'],
+      '#attributes' => array('id' => $textarea_id),
       // Using a format that OpenLayers can handle.
       '#default_value' => ($set->getText() === 'GEOMETRYCOLLECTION(EMPTY)') ? '' : $set->getText(),
       '#required' => $element['#required'],
       '#resizable' => FALSE,
+      '#prefix' => '<div class="form-item-postgis-wkt">',
+      '#suffix' => '</div>',
     );
 
     // Remove empty GEOMETRYCOLLECTION coming from OpenLayers.
     $element[$delta]['script'] = array(
-      '#markup' => '<script type="text/javascript">(function($){var field = $("#' . $textarea_id . '"); if (field.val() == "GEOMETRYCOLLECTION()") {field.html("")}})(jQuery);</script>',
+      '#markup' => '<script type="text/javascript">(function($){
+        var field = $("#' . $textarea_id . '");
+        if (field.val() == "GEOMETRYCOLLECTION()") {
+          field.html("")
+        }
+       })(jQuery);</script>',
     );
   }
   else {

@@ -7,9 +7,9 @@ configure = admin/structure/openlayers/editor
 dependencies[] = openlayers
 
 files[] = ole.module
-; Information added by drupal.org packaging script on 2013-07-04
-version = "7.x-1.0-rc1"
+; Information added by  packaging script on 2013-11-21
+version = "7.x-1.0"
 core = "7.x"
 project = "ole"
-datestamp = "1372951854"
+datestamp = "1385057316"
 

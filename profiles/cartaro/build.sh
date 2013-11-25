@@ -19,9 +19,9 @@ echo "
 api = 2
 
 ; Core
-core = 7.22
+core = 7.x
 
-projects[drupal][version] = 7.22
+projects[drupal][version] = 7.24
 
 projects[cartaro][type] = profile
 projects[cartaro][version] = 1.x-dev

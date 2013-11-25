@@ -14,16 +14,19 @@ function postgis_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_
     if ($info['type'] == 'postgis') {
       $targets[$info['field_name'] . ':gml'] = array(
         'name' => t('@label from GML', array('@label' => $instance['label'])),
+        'description' => t('@label PostGIS field read from data in GML format.', array('@label' => $instance['label'])),
         'callback' => 'postgis_feeds_set_target_gml',
         'real_target' => $info['field_name'],
       );
       $targets[$info['field_name'] . ':kml'] = array(
         'name' => t('@label from KML', array('@label' => $instance['label'])),
+        'description' => t('@label PostGIS field read from data in KML format.', array('@label' => $instance['label'])),
         'callback' => 'postgis_feeds_set_target_kml',
         'real_target' => $info['field_name'],
       );
       $targets[$info['field_name'] . ':wkt'] = array(
         'name' => t('@label from WKT', array('@label' => $instance['label'])),
+        'description' => t('@label PostGIS field read from data in WKT format.', array('@label' => $instance['label'])),
         'callback' => 'postgis_feeds_set_target',
         'real_target' => $info['field_name'],
       );

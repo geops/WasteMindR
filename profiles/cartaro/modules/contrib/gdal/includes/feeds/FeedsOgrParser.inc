@@ -95,4 +95,4 @@ function feeds_ogr_parser_form_config_validate($form, &$form_state) {
 }
 
 
-// vim: tabstop=2 shiftwidth=2
+// vim: ft=php tabstop=2 shiftwidth=2

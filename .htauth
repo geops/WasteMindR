@@ -1,7 +1,0 @@
-# This file contains users and password for HTTP Basic Authentification
-# Only used if HTTP Authentification is enabled
-# Please ask support@cartaro-enterprise.com to enable / disabling
-# 
-#
-# To add new user and password:
-# printf "username:$(openssl passwd -1 password)\n" >> .htauth

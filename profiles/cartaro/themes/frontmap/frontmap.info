@@ -158,9 +158,9 @@ settings[zen_wireframes]           = 0
 ; the line below and see the documentation at: http://drupal.org/node/495654
 ;plugins[panels][layouts] = layouts
 
-; Information added by drupal.org packaging script on 2013-04-04
-version = "7.x-1.0-beta4"
+; Information added by  packaging script on 2013-11-22
+version = "7.x-1.0-rc2"
 core = "7.x"
 project = "frontmap"
-datestamp = "1365091817"
+datestamp = "1385121217"
 

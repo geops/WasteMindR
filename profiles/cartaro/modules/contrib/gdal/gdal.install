@@ -25,19 +25,20 @@ function gdal_disable() {
  * Implements hook_requirements().
  */
 function gdal_requirements($phase) {
+  $t = get_t();
+
   $gdal_version = NULL;
   if (extension_loaded("gdal")) {
     $gdal_version = gdalversioninfo("--version");
-  }
 
-  $t = get_t();
-  // add version number of the gdal-extension
-  $gdal_version .= "<br>" . $t('PHP extension version: ');
-  if (function_exists("gdalextversioninfo")) {
+    // add version number of the gdal-extension
+    $gdal_version .= "<br>" . $t('PHP extension version: ');
+    if (function_exists("gdalextversioninfo")) {
       $gdal_version .= gdalextversioninfo();
-  }
-  else {
+    }
+    else {
       $gdal_version .= $t('unknown (< 0.1.3)');
+    }
   }
 
   $requirements['gdal-extension'] = array(
@@ -47,3 +48,5 @@ function gdal_requirements($phase) {
   );
   return $requirements;
 }
+
+// vim: ft=php tabstop=2 shiftwidth=2

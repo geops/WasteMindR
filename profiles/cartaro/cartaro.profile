@@ -98,16 +98,17 @@ function cartaro_form_install_configure_form_alter(&$form, $form_state) {
       '#required' => TRUE,
       '#default_value' => 'http://' . $_SERVER['SERVER_NAME'] . ':8080/geoserver',
     ),
-    'geoserver_workspace_support' => array(
-      '#title' => st('Installation shares GeoServer with other Drupal instances'),
-      '#type' => 'checkbox',
-      '#description' => st('Qualifies user names with workspace name when logging into GeoServer. Choose this if, and only if, you opted for prefixed user names in GeoServer.'),
-      '#default_value' => FALSE
-    ),
     'geoserver_workspace' => array(
       '#title' => st('GeoServer Workspace'),
       '#type' => 'textfield',
       '#required' => TRUE,
+      '#description' => st('The workspace will be created during the instalation if it does not exist.'),
+    ),
+    'geoserver_workspace_support' => array(
+      '#title' => st('Installation shares GeoServer with other Drupal instances'),
+      '#type' => 'checkbox',
+      '#description' => st('Qualifies user names with workspace name when logging into GeoServer. Choose this if you opted for prefixed user names in GeoServer. <b><a target="_blank" href="http://cartaro.org/documentation/using-drupal-users-and-roles-geoserver">geoserver-sec-drupal</a> plugin is required</b>'),
+      '#default_value' => FALSE
     ),
     'postgis_version' => array(
       '#title' => st('PostGIS Version'),

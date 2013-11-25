@@ -69,6 +69,39 @@ p.submitted {
   height: 2em;
 }
 
+div.messages {
+  margin: 0.5em 0;
+  padding: 0.5em 1em;
+  font-weight: bold;
+  border: none;
+  background-image: none;
+  color: white;
+}
+
+div.messages--status {
+  background-color: #46A546;
+}
+
+div.messages--warning {
+  background-color: orange;
+}
+
+div.messages--error {
+  background-color: red;
+}
+
+.node-unpublished {
+  background-color: transparent;
+}
+
+mark.unpublished {
+  font-weight: bold;
+  display: block;
+  background: red;
+  color: white;
+  padding: 0.5em 1em;
+}
+
 /**
  * Lists
  */
@@ -104,9 +137,6 @@ li a.active {
 /**
  * Forms
  */
-.form-item {
-  margin: 0 0.5em;
-}
 .form-submit {
   margin-right: 1em;
 }

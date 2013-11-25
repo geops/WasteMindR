@@ -167,4 +167,4 @@ class OgrReader {
 }
 
 
-// vim: tabstop=2 shiftwidth=2
+// vim: ft=php tabstop=2 shiftwidth=2
