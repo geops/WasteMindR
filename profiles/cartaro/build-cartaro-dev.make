@@ -21,7 +21,7 @@ projects[feeds][version] = 2.0-alpha8
 projects[feeds][subdir]  = contrib
 projects[gdal][version] = 1.0-beta4
 projects[gdal][subdir]  = contrib
-projects[geoserver][version] = 1.1
+projects[geoserver][version] = 1.3
 projects[geoserver][subdir]  = contrib
 projects[job_scheduler][version] = 2.0-alpha3
 projects[job_scheduler][subdir] = contrib
@@ -45,7 +45,7 @@ projects[openlayers_print][version] = 1.0-beta1
 projects[openlayers_print][subdir]  = contrib
 projects[pathauto][version] = 1.2
 projects[pathauto][subdir]  = contrib
-projects[postgis][version] = 1.1
+projects[postgis][version] = 1.2
 projects[postgis][subdir]  = contrib
 projects[proj4js][version] = 1.2
 projects[proj4js][subdir]  = contrib
@@ -57,7 +57,7 @@ projects[views][version] = 3.7
 projects[views][subdir]  = contrib
 
 ; Contrib themes
-projects[frontmap][version] = 1.0-rc1
+projects[frontmap][version] = 1.0-rc2
 projects[frontmap][type] = theme
 projects[zen][version] = 5.4
 projects[zen][type] = theme

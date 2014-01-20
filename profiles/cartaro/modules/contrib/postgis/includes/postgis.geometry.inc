@@ -73,7 +73,7 @@ class PostgisGeometrySet {
    *   Number of geometries. -1 means unlimited number of geometry.
    */
   function __construct($type, $srid, $cardinality = -1) {
-    $this->type = $type;
+    $this->type = strtoupper($type);
     $this->srid = $srid;
     $this->multi = $this->isMulti($type);
     $this->cardinality = $cardinality;
@@ -370,7 +370,7 @@ class PostgisGeometry {
    *   Spatial projection.
    */
   function __construct($type, $srid) {
-    $this->type = $type;
+    $this->type = strtoupper($type);
     $this->srid = $srid;
   }
 

@@ -13,9 +13,9 @@ dependencies[] = image
 files[] = openlayers.module
 
 
-; Information added by drush on 2013-11-22
+; Information added by drush on 2014-01-20
 version = "7.x-2.0-beta7"
 core = "7.x"
 project = "openlayers"
-datestamp = "1385130564"
+datestamp = "1390210709"
 

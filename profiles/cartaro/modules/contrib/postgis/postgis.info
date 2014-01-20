@@ -1,5 +1,6 @@
 name = PostGIS
 description = Provides a field for geospatial data using the Field API. Requires PostGIS 1.5 or later.
+package = Fields
 core = 7.x
 
 files[] = includes/postgis.geometry.inc
@@ -11,9 +12,9 @@ stylesheets[all][] = postgis.css
 
 
 
-; Information added by  packaging script on 2013-11-21
-version = "7.x-1.1"
+; Information added by Drupal.org packaging script on 2014-01-20
+version = "7.x-1.2"
 core = "7.x"
 project = "postgis"
-datestamp = "1385057613"
+datestamp = "1390210106"
 

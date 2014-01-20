@@ -104,7 +104,7 @@ function postgis_field_widget_form(&$form, &$form_state, $field, $instance, $lan
 
   if (module_exists('openlayers') && $instance['widget']['type'] == 'openlayers') {
 
-    switch ($field['settings']['type']) {
+    switch (strtoupper($field['settings']['type'])) {
       case POSTGIS_PRIMITIVE_POINT:
       case POSTGIS_PRIMITIVE_MULTIPOINT:
         $types = array('point');

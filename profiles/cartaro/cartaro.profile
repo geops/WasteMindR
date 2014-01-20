@@ -191,8 +191,8 @@ function cartaro_configure_form_validate($form, &$form_state) {
     }
   }
   else {
-    form_set_error('geoserver_url', t('GeoServer login failed: %reason Please check the GeoServer URL and your site maintenance account.', 
-        array('%reason' => $geoserver_login)));
+    form_set_error('geoserver_url', t('GeoServer login failed: !reason',
+        array('!reason' => $geoserver_login)));
   }
 }
 
@@ -215,8 +215,8 @@ function cartaro_configure_geoserver($geoserver_workspace) {
       geoserver_post('rest/workspaces.json', $content);
     }
     catch (geoserver_resource_exception $exc) {
-      form_set_error('geoserver_workspace', t('Could not create GeoServer workspace: %reason',
-          array('reason' => $exc->getMessage()))
+      form_set_error('geoserver_workspace', t('Could not create GeoServer workspace: !reason',
+          array('!reason' => $exc->getMessage()))
       );
     }
   }
