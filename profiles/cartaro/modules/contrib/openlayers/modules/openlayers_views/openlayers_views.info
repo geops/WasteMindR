@@ -15,11 +15,12 @@ files[] = views/openlayers_views_plugin_display_openlayers.inc
 files[] = views/openlayers_views_plugin_row_point.inc
 files[] = views/openlayers_views_plugin_row_bounding_box.inc
 files[] = views/openlayers_views_plugin_row_geometry.inc
+files[] = plugins/layer_types/openlayers_views_vector.inc
+files[] = plugins/layer_types/openlayers_views_image.inc
 
-
-; Information added by drush on 2014-01-20
-version = "7.x-2.0-beta7"
+; Information added by Drupal.org packaging script on 2014-03-26
+version = "7.x-2.0-beta9"
 core = "7.x"
 project = "openlayers"
-datestamp = "1390210709"
+datestamp = "1395830381"
 

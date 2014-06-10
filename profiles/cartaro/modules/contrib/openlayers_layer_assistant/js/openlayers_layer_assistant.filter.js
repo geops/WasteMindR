@@ -37,7 +37,7 @@ jQuery(document).ready(function(){
       return this.name;
     }));
     
-    var showSearch = !jQuery(':checkbox[name="raster:tiled"]').is(':checked') && !jQuery(':checkbox[name="vector"]').is(':checked');
+    var showSearch = false;
     jQuery('#openlayers_layer_assistant_opensearch').toggle(showSearch);
   }
   openlayers_layer_assistant_intro.find(":checkbox").change(function(){

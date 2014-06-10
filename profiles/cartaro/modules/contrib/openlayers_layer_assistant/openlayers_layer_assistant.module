@@ -457,9 +457,9 @@ function openlayers_layer_assistant_form_submit($form, &$form_state) {
   $layerData->data = $form_state['input'][$chosenLayerType];
   $layerData->data['isBaseLayer'] = $form_state['input']['isBaseLayer'];
   $layerData->data['projection'] = $form_state['input']['projection'];
-  $layerData->data['options']['layers'] = array(
-    $layerData->data['options']['layers']
-  );
+  foreach ($form_state['input'][$chosenLayerType] as $key => $value) {
+    $layerData->data[$key] = $value;
+  }
   
   $layer_type = new $chosenLayerType($layerData);
   // Set export_type so that ctools does not crash. The is no useful constant but 0 work with the current implementation of ctools.

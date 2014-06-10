@@ -23,10 +23,9 @@ features[views_view][] = "openlayers_example_data_overlay"
 features[views_view][] = "openlayers_example_map_display_view"
 project status url = "http://drupal.org/project/openlayers"
 
-
-; Information added by drush on 2014-01-20
-version = "7.x-2.0-beta7"
+; Information added by Drupal.org packaging script on 2014-03-26
+version = "7.x-2.0-beta9"
 core = "7.x"
 project = "openlayers"
-datestamp = "1390210709"
+datestamp = "1395830381"
 

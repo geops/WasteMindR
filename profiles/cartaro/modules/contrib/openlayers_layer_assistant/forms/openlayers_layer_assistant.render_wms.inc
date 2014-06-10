@@ -334,6 +334,6 @@ class openlayer_layer_assistant_render_wms extends openlayer_layer_assistant_ren
     
     // Set the selected layer in the field where the OpenLayers module expects it
     $layers = $this->getFieldValue($form_state['input'], array('layer_name'));
-    $form_state['input'][$specificFieldsKey]['options']['layers'] = $layers;
+    $form_state['input'][$specificFieldsKey]['options']['layers'] = explode("\r\n", $layers);
   }
 }
