@@ -3,7 +3,7 @@
 api = 2
 
 ; Core
-core = 7.28
+core = 7.29
 
 ; Contrib modules
 projects[ctools][version] = 1.4
@@ -31,6 +31,7 @@ projects[ole][version] = 1.0
 projects[ole][subdir]  = contrib
 projects[openlayers][version] = 2.0-beta9
 projects[openlayers][subdir]  = contrib
+projects[openlayers][patch][] = http://drupal.org/files/issues/openlayers-wmts-matrixid-configuration-2275917-6.patch
 projects[openlayers_filters][version] = 2.0
 projects[openlayers_filters][subdir] = contrib
 projects[openlayers_layer_assistant][version] = 1.0-beta3
