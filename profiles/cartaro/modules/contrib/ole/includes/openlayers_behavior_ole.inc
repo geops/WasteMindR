@@ -23,14 +23,6 @@ class openlayers_behavior_ole extends openlayers_behavior {
 
     $form = array();
 
-    $check = variable_get('ole_version_check', '');
-    if (empty($check)) {
-      $form['version_check'] = array(
-        '#markup' => t('OpenLayers Editor version check failed. Please review the !settings.',
-          array('!settings' => l(t('OpenLayers Editor settings'), 'admin/structure/openlayers/editor'))),
-      );
-    }
-
     $form['processing_controls'] = array(
       '#title' => t('Processing Controls'),
       '#type' => 'checkboxes',

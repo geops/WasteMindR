@@ -55,9 +55,9 @@ features[user_permission][] = view any page content
 features[user_permission][] = view the administration theme
 features[user_role][] = demo
 
-; Information added by Drupal.org packaging script on 2014-07-18
-version = "7.x-1.4"
+; Information added by Drupal.org packaging script on 2014-10-19
+version = "7.x-1.5"
 core = "7.x"
 project = "cartaro"
-datestamp = "1405699731"
+datestamp = "1413710331"
 

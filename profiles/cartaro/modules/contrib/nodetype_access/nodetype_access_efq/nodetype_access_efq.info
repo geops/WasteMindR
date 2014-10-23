@@ -5,9 +5,9 @@ core = 7.x
 dependencies[] = nodetype_access
 
 
-; Information added by drush on 2014-07-18
+; Information added by drush on 2014-10-19
 version = "7.x-1.0-beta5"
 core = "7.x"
 project = "nodetype_access"
-datestamp = "1405699735"
+datestamp = "1413710348"
 
