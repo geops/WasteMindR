@@ -32,7 +32,7 @@ class OgrFeedsParserResult extends FeedsParserResult {
    * @param $ogrLayer OGRLayer
    */
   public function __construct(FeedsSource $source, OgrFeatureIterator $iterator) {
-    parent::__construct(array());
+    parent::__construct();
     $this->iterator = $iterator;
     
     // number of features to import in one pass
@@ -49,23 +49,15 @@ class OgrFeedsParserResult extends FeedsParserResult {
     if ($this->start_pos) {
         $this->iterator->seek($this->start_pos);
     }
-  }
 
-  public function shiftItem() {
+    $limit = min($this->start_pos + $this->limit, $this->state->total);
+    while ($this->iterator->getPosition() < $limit) {
+      $this->items[] = $this->iterator->next();
 
-    // add 1 to the current position as the position will only be incremented when calling next()
-    // a few lines down
-    if ((($this->limit + $this->start_pos) <= ($this->iterator->getPosition() + 1))) {
-        return; // reached limit of features for iteration in this request
+      // report progress
+      $this->state->pointer = $this->iterator->getPosition();
+      $this->state->progress($this->state->total, $this->state->pointer);
     }
-
-    $this->current_item = $this->iterator->next();
-
-    // report progress
-    $this->state->pointer = $this->iterator->getPosition();
-    $this->state->progress($this->state->total, $this->state->pointer);
-
-    return $this->current_item;
   }
 }
 

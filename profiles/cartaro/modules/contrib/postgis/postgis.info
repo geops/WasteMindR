@@ -12,9 +12,9 @@ stylesheets[all][] = postgis.css
 
 
 
-; Information added by Drupal.org packaging script on 2014-01-20
-version = "7.x-1.2"
+; Information added by Drupal.org packaging script on 2015-02-19
+version = "7.x-1.3"
 core = "7.x"
 project = "postgis"
-datestamp = "1390210106"
+datestamp = "1424365690"
 

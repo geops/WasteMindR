@@ -18,7 +18,7 @@
 /**
  * OpenLayers hosted default library.
  */
-define('OPENLAYERS_DEFAULT_LIBRARY', 'http://openlayers.org/api/2.13/OpenLayers.js');
+define('OPENLAYERS_DEFAULT_LIBRARY', '//cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js');
 
 /**
  * OpenLayers library compatible suggestion.
@@ -103,7 +103,8 @@ function openlayers_include() {
   $lang = $language->language;
 
   if ('internal' == variable_get('openlayers_source_type', 'external')) {
-    $variant = (variable_get('openlayers_source_internal_variant', NULL) == 'original') ? 'original' : NULL;
+    $variant = variable_get('openlayers_source_internal_variant', NULL);
+    if ($variant == 'original') $variant = NULL;
     libraries_load('openlayers', $variant);
 
     if ($lang != 'en') {

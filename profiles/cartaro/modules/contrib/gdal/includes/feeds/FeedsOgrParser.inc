@@ -34,10 +34,12 @@ class FeedsOgrParser extends FeedsParser {
     return new OgrFeedsParserResult($source, $iterator);
   }
 
+
+  /**
+   * Override parent::getMappingSources().
+   */
   public function getMappingSources() {
-    // parse has to be called before to return correct results
-    $result = parent::getMappingSources() + $this->layerFields;
-    return $result;
+    return FALSE;
   }
 
   /**

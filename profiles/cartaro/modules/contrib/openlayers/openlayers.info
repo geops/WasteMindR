@@ -27,9 +27,10 @@ files[] = plugins/layer_types/openlayers_layer_type_wms.inc
 files[] = plugins/layer_types/openlayers_layer_type_wmts.inc
 files[] = plugins/layer_types/openlayers_layer_type_xyz.inc
 
-; Information added by Drupal.org packaging script on 2014-10-17
+
+; Information added by drush on 2015-02-19
 version = "7.x-2.0-beta11"
 core = "7.x"
 project = "openlayers"
-datestamp = "1413561926"
+datestamp = "1424367500"
 

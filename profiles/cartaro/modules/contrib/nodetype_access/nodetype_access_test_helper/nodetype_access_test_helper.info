@@ -6,9 +6,9 @@ core = 7.x
 hidden = true
 
 
-; Information added by drush on 2014-10-19
+; Information added by drush on 2015-02-19
 version = "7.x-1.0-beta5"
 core = "7.x"
 project = "nodetype_access"
-datestamp = "1413710348"
+datestamp = "1424367498"
 

@@ -21,7 +21,7 @@ api = 2
 ; Core
 core = 7.x
 
-projects[drupal][version] = 7.32
+projects[drupal][version] = 7.34
 
 projects[cartaro][type] = profile
 projects[cartaro][version] = 1.x-dev

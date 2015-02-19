@@ -10,9 +10,9 @@ files[] = includes/SpatialReference.inc
 files[] = includes/OgrReader.inc
 files[] = includes/OgrFeatureIterator.inc
 
-; Information added by  packaging script on 2013-11-21
-version = "7.x-1.0-beta4"
+; Information added by Drupal.org packaging script on 2015-02-19
+version = "7.x-1.0"
 core = "7.x"
 project = "gdal"
-datestamp = "1385056708"
+datestamp = "1424365983"
 

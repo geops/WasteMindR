@@ -23,8 +23,64 @@ function postgis_field_info() {
       'instance_settings' => array(),
       'default_widget' => $default,
       'default_formatter' => $default,
+      'property_type' => 'postgis',
+      'property_callbacks' => array('postgis_property_info_callback'),
     ),
   );
+}
+
+/**
+ * Callback to alter the property info of postgis fields.
+ *
+ * @see postgis_field_info().
+ */
+function postgis_property_info_callback(&$info, $entity_type, $field, $instance, $field_type) {
+  $name = $field['field_name'];
+  $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$name];
+  $property['type'] = ($field['cardinality'] != 1) ? 'list<postgis>' : 'postgis';
+  $property['getter callback'] = 'entity_metadata_field_verbatim_get';
+  $property['setter callback'] = 'postgis_field_property_set';
+  $property['property info'] = array(
+    'wkt' => array(
+      'type' => 'postgis',
+      'label' => t('Well-known text'),
+      'getter callback' => 'postgis_property_get_wkt',
+      'required' => TRUE,
+    ),
+  );
+
+  unset($property['query callback']);
+}
+
+/**
+ * Callback for getting the file entity of file fields.
+ */
+function postgis_property_get_wkt($item) {
+  $geometry = new PostgisGeometry(NULL, NULL);
+  $geometry->fromGeometry($item['geometry']);
+  return $geometry->getText();
+}
+
+/**
+ * Writes the passed field items in the object and set the transformed option.
+ *
+ * Based on entity_metadata_field_verbatim_set().
+ */
+function postgis_field_property_set($entity, $name, $items, $langcode, $entity_type) {
+  $field = field_info_field($name);
+  $langcode = entity_metadata_field_get_language($entity_type, $entity, $entity_type, $langcode);
+  $value = $field['cardinality'] == 1 ? array($items) : (array) $items;
+  // Filter out any items set to NULL.
+  $entity->{$name}[$langcode] = array_filter($value);
+
+  // Geometry comes in right projection, so set the transformed option.
+  foreach ($entity->{$name}[$langcode] as &$item) {
+    $item['transformed'] = TRUE;
+  }
+
+  // Empty the static field language cache, so the field system picks up any
+  // possible new languages.
+  drupal_static_reset('field_language');
 }
 
 /**
@@ -105,7 +161,7 @@ function postgis_field_is_empty($item, $field) {
 function postgis_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   $type = $field['settings']['type'];
 
-  if ($instance['widget']['type'] === 'openlayers' && !isset($items[0]['feeds'])) {
+  if ($instance['widget']['type'] === 'openlayers' && !isset($items[0]['transformed'])) {
     $map = openlayers_map_load($instance['widget']['settings']['map']);
     $srid = $map->data['projection'];
     if (!is_numeric($srid) && (strpos($srid, ':') != -1)) {
@@ -126,7 +182,7 @@ function postgis_field_presave($entity_type, $entity, $field, $instance, $langco
     }
   }
 
-  if ($instance['widget']['type'] === 'openlayers' && !isset($item['feeds'])) {
+  if ($instance['widget']['type'] === 'openlayers' && !isset($item['transformed'])) {
     $set->transform($field['settings']['srid']);
   }
 

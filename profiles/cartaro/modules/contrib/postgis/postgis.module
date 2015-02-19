@@ -68,7 +68,7 @@ function postgis_ctools_plugin_type() {
 function postgis_help($path, $arg) {
   switch ($path) {
     case 'admin/help#postgis':
-      return t('This module requires a PostGIS 1.5 enabled PostgreSQL database. See the PostGIS documentation on <a href="@link">how to install PostGIS</a>. To manage geospatial content add a PostGIS field to any <a href="@types">content type</a> you like.', array('@link' => 'http://postgis.org/documentation/manual-1.5/ch02.html', '@types' => url('admin/structure/types')));
+      return t('This module requires a PostgreSQL database with PostGIS 1.5 or newer enabled. See the PostGIS documentation on <a href="@link">how to install PostGIS</a>. To manage geospatial content add a PostGIS field to any <a href="@types">content type</a> you like.', array('@link' => 'http://postgis.net/docs/manual-2.1/postgis_installation.html', '@types' => url('admin/structure/types')));
   }
 }
 
