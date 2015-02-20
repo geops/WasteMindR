@@ -32,5 +32,5 @@ files[] = plugins/layer_types/openlayers_layer_type_xyz.inc
 version = "7.x-2.0-beta11"
 core = "7.x"
 project = "openlayers"
-datestamp = "1424367500"
+datestamp = "1424369691"
 

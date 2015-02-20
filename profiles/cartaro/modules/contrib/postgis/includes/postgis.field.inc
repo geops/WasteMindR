@@ -161,7 +161,7 @@ function postgis_field_is_empty($item, $field) {
 function postgis_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   $type = $field['settings']['type'];
 
-  if ($instance['widget']['type'] === 'openlayers' && !isset($items[0]['transformed'])) {
+  if ($instance['widget']['type'] === 'openlayers' && !isset($items[0]['feeds'])) {
     $map = openlayers_map_load($instance['widget']['settings']['map']);
     $srid = $map->data['projection'];
     if (!is_numeric($srid) && (strpos($srid, ':') != -1)) {
@@ -182,7 +182,7 @@ function postgis_field_presave($entity_type, $entity, $field, $instance, $langco
     }
   }
 
-  if ($instance['widget']['type'] === 'openlayers' && !isset($item['transformed'])) {
+  if ($instance['widget']['type'] === 'openlayers' && !isset($item['feeds'])) {
     $set->transform($field['settings']['srid']);
   }
 
