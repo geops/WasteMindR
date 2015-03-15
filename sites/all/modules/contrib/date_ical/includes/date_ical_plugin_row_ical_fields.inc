@@ -305,6 +305,7 @@ class date_ical_plugin_row_ical_fields extends views_plugin_row {
       date_format($end, DATE_FORMAT_DATETIME),
       $granularity
     );
+    $all_day = true;
     
     if ($all_day) {
       // According to RFC 2445 (clarified in RFC 5545) the DTEND value is
