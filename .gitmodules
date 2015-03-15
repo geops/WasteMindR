@@ -1,0 +1,3 @@
+[submodule "bin/crawler"]
+	path = bin/crawler
+	url = https://github.com/janvogt/WasteMindRCrawler.git
