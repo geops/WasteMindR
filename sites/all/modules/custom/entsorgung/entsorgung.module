@@ -1,0 +1,177 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function entsorgung_menu() {
+  $items['entsorgung/%/%'] = array(
+    'page callback' => 'entsorgung_filter_view',
+    'page arguments' => array(1, 2),
+    // TODO!! THERE IS NO PRIVILEGE CHECKING AT THE MOMENT
+    'access callback'   => true
+  );
+  return $items;
+}
+
+/**
+ * Implements a views-based rest API for messtisch
+ *
+ * if a nid is provided, output a single node from the messtisch view
+ * if no nid is provded, output every row
+ * (paging is possible)
+ */
+function entsorgung_filter_view($display, $lat, $lon) {
+
+  $view = views_get_view('events');
+
+  $view->set_display($display);
+
+  $location = "POINT($lon $lat)";
+  $filters = $view->get_items('filter', $view->current_display);
+  $filters['field_geometry_geometry']['value']['wkt'] = $location;
+  $view->set_item($view->current_display, 'filter', 'field_geometry_geometry', $filters['field_geometry_geometry']);
+
+  $view->pre_execute();
+
+  if ($display === 'json') {
+
+    $return = array('events' => array());
+    $view->execute();
+
+    if (count($view->result) > 0) {
+      foreach ($view->result as $result) {
+        $return['events'][] = array(
+          'type' => $result->field_field_type[0]['rendered']['#markup'],
+          'date' => substr($result->field_field_date[0]['rendered']['#markup'], 0, 10),
+        );
+      }
+
+      $return['location'] = array(
+        'geometry' => $view->result[0]->field_field_geometry[0]['rendered']['#markup'],
+        'name' => $view->result[0]->node_field_data_field_location_title,
+      );
+    }
+
+    drupal_json_output($return);
+
+  } else {
+    print $view->render($display);
+  }
+}
+
+/**
+ * Implementation of hook_cron() 
+ */ 
+function entsorgung_init2() {
+
+  $queryUsers = db_select('users', 'u');
+  $queryUsers->join('field_data_field_reminder', 'r', 'u.uid = r.entity_id');
+  //$query->join('field_data_field_position', 'p', 'u.uid = p.entity_id');
+  $queryUsers->fields('u', array('uid', 'mail', 'name', 'language'));
+  //$query->fields('p', array('field_position_geometry'));
+
+
+
+
+    //->join('field_data_field_reminder','r','r.entity_id = u.uid');
+    /*
+                ->condition('ur.rid', array(2,4,),'IN') // set to an array of roles and pass. In this case I knew ahead of time what rids I wanted to filter by.
+                ->groupBy('u.uid');
+    $query->innerJoin('users_roles', 'ur', 'u.uid = ur.uid');*/
+    $users = $queryUsers->execute();
+    //dpm($results);
+    while($user = $users->fetchAssoc()) {
+
+      //dpm($user);
+
+      $queryEvents = db_select('node', 'ne');
+      $queryEvents->join('field_data_field_type', 'ft', 'ne.nid = ft.entity_id');
+      $queryEvents->join('field_data_field_date', 'fd', 'ne.nid = fd.entity_id');
+      $queryEvents->join('field_data_field_location', 'fl', 'ne.nid = fl.entity_id');
+      $queryEvents->join('node', 'nl', 'fl.field_location_target_id = nl.nid');
+      $queryEvents->join('field_data_field_geometry', 'fg', 'nl.nid = fg.entity_id');
+
+      $queryEvents->where('nl.nid = (select entity_id from (select entity_id, st_distance(field_geometry_geometry, (select field_position_geometry from field_data_field_position where entity_id = :uid and bundle = :bundle)) from field_data_field_geometry order by 2 limit 1) foo ) AND fd.field_date_value BETWEEN now() AND timestamp :tomorrow', array(':uid' => $user['uid'], ':bundle' => 'user', ':tomorrow' => 'tomorrow'));
+
+      $queryEvents->fields('nl', array('title'));
+      $queryEvents->fields('ft', array('field_type_value'));
+      $queryEvents->fields('fd', array('field_date_value'));
+
+      $events = $queryEvents->execute();
+
+      $params = array();
+      while($event = $events->fetchAssoc()) {
+        $params[] = $event;
+      }
+//dpm($params);
+      if ($user['mail']) {
+        //drupal_mail('entsorgung', 'reminder', $user['mail'], $user['language'], $params);
+      }
+
+
+      /*
+
+        - event e
+        - field_date fd fd.entity_id = e.nid
+        - field_location fl e.nid = fl.entity_id
+        - location l fl.target_id = l.nid
+        - field_geometry fg fg.entity_id = l.nid
+
+
+        - where: field_position p p.entity_id = uid and 
+
+
+        l.nid = (select entity_id from (select entity_id, st_distance(field_geometry_geometry, (select field_position_geometry from field_data_field_position where entity_id = uid and bundle = 'user')) from field_data_field_geometry order by 2 limit 1) foo )
+
+        */
+
+    }
+
+
+  if (time() >= variable_get('entsorgung_reminder', 0)) {
+
+    variable_set('entsorgung_reminder', time() + 0); // 86400);
+  }
+
+}
+
+function entsorgung_mail($key, &$message, $params) {
+    //$data['user'] = $params['account'];
+    //$options['language'] = $message['language'];
+    //user_mail_tokens($variables, $data, $options);
+    switch($key) {
+      case 'reminder':
+        // If the recipient can receive such notices by instant-message, do
+        // not send by email.
+        $langcode = $message['language']->language;
+        $message['subject'] = 'WasteMindR'; // t('Notification from !site', $variables, array('langcode' => $langcode));
+        $message['body'][] = '...'; // t("Dear !username\n\nThere is new content available on the site.", $variables, array('langcode' => $langcode));
+
+        foreach ($params as $event) {
+          $message['body'][] = t('Tomorrow is !type disposal day!', array('!type' => $event['field_type_value']));
+        }
+        break;
+    }
+  }
+
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ */
+function entsorgung_ctools_plugin_api($module, $api) {
+  if ($module == 'openlayers') {
+    switch ($api) {
+      case 'behaviors':
+        return array('version' => 1);
+    }
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function entsorgung_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'openlayers' && $plugin == 'behaviors') {
+    return 'plugins/openlayers/behaviors';
+  }
+}
