@@ -362,6 +362,11 @@ class date_ical_plugin_style_ical_feed extends views_plugin_style {
           );
         }
         
+        // Hackathon Hack: Add VALARM 1 day before start date
+        $valarm = & $vevent->newComponent("valarm");
+        $valarm->setProperty("trigger", "-P1D");
+        $valarm->setProperty("action", "DISPLAY");
+        
         // Allow other modules to alter the vevent before it's exported.
         drupal_alter('date_ical_export_vevent', $vevent, $this->view, $event);
       }
